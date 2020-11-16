@@ -15,6 +15,7 @@ const HomeScreen = () => {
     };
 
     fetchProducts();
+    //eslint-disable-next-line
   }, []);
 
   return (
