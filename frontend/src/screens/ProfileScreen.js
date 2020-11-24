@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Button, Row, Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUser } from "../actions/userActions";
+import { USER_UPDATE_RESET } from "../constants/userConstans";
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -21,18 +21,22 @@ const ProfileScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { success } = userUpdate;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_RESET });
         dispatch(getUserDetails("profile"));
       } else {
         setName(user.name);
         setEmail(user.email);
       }
     }
-  }, [history, userInfo, dispatch, user]);
+  }, [history, userInfo, dispatch, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,7 +44,7 @@ const ProfileScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       setMessage("Password do not match!");
     } else {
-      //DISPATCH UPDATE PROFILE
+      dispatch(updateUser({ id: user._id, name, email, password }));
     }
   };
 
@@ -50,6 +54,7 @@ const ProfileScreen = ({ location, history }) => {
         <h2>User Profile</h2>
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
+        {success && <Message variant="success">Profile Updated</Message>}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
@@ -84,7 +89,6 @@ const ProfileScreen = ({ location, history }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="off"
-              required
             ></Form.Control>
           </Form.Group>
 
@@ -96,7 +100,6 @@ const ProfileScreen = ({ location, history }) => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               autoComplete="off"
-              required
             ></Form.Control>
           </Form.Group>
 
