@@ -33,8 +33,15 @@ const userInfoFromStorage = sessionStorage.getItem("userInfo")
   ? JSON.parse(sessionStorage.getItem("userInfo"))
   : null;
 
+const shippingAddressFromStorage = sessionStorage.getItem("shippingAddress")
+  ? JSON.parse(sessionStorage.getItem("shippingAddress"))
+  : {};
+
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 
