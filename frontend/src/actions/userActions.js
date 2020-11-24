@@ -13,7 +13,7 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
-  USER_UPDATE_RESET,
+  // USER_UPDATE_RESET,
 } from "../constants/userConstans";
 
 export const login = (email, password) => async (dispatch) => {
