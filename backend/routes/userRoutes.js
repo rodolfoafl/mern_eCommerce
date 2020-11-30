@@ -9,7 +9,7 @@ import {
 import { protect, checkAdmin } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
-router.route("/").post(registerUser).get(protect, checkAdmin, getUsers);
+router.route("/").get(protect, checkAdmin, getUsers).post(registerUser);
 router.post("/login", authUser);
 router
   .route("/profile")
