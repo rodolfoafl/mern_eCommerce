@@ -10,8 +10,8 @@ import Loader from "../components/Loader";
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
+  const productsList = useSelector((state) => state.productsList);
+  const { loading, error, products } = productsList;
 
   useEffect(() => {
     dispatch(listProducts());
