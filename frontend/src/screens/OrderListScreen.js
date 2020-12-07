@@ -54,19 +54,37 @@ const OrderListScreen = ({ history }) => {
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                      <i
+                        className="fas fa-times"
+                        style={{
+                          color: "red",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      ></i>
                     )}
                   </td>
                   <td>
                     {order.isDelivered ? (
                       order.deliveredAt.substring(0, 10)
                     ) : (
-                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                      <i
+                        className="fas fa-times"
+                        style={{
+                          color: "red",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      ></i>
                     )}
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant="light" className="btn-sm">
+                      <Button
+                        variant="light"
+                        className="btn-sm"
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         Details
                       </Button>
                     </LinkContainer>
