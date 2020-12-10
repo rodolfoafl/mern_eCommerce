@@ -19,3 +19,11 @@ h3 {
 .rating span {
   margin: 0.1rem;
 }
+
+.card {
+  height: 420px;
+}
+
+.card-img.top {
+  max-height: 204px;
+}
