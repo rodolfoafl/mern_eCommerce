@@ -8,6 +8,8 @@ import { getUserDetails, updateUser } from "../actions/userActions";
 import { listUserOrders as listOrders } from "../actions/orderActions";
 import { USER_UPDATE_RESET } from "../constants/userConstans.js";
 
+import Moment from "react-moment";
+
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -48,7 +50,7 @@ const ProfileScreen = ({ location, history }) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Password do not match!");
+      setMessage("Senhas não são idênticas!");
     } else {
       dispatch(updateUser({ id: user._id, name, email, password }));
     }
@@ -61,17 +63,17 @@ const ProfileScreen = ({ location, history }) => {
       ) : (
         <Row>
           <Col md={3}>
-            <h2>User Profile</h2>
+            <h2>Perfil de Usuário</h2>
             {message && <Message variant="danger">{message}</Message>}
             {error && <Message variant="danger">{error}</Message>}
-            {success && <Message variant="success">Profile Updated</Message>}
+            {success && <Message variant="success">Perfil Atualizado</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
               <Form.Group controlId="name">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Nome</Form.Label>
                 <Form.Control
                   type="name"
-                  placeholder="Enter name"
+                  placeholder="Informe um nome"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   autoComplete="off"
@@ -80,10 +82,10 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
 
               <Form.Group controlId="email">
-                <Form.Label>Email Address</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="Enter email"
+                  placeholder="Informe um email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
@@ -92,10 +94,10 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
 
               <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Senha</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Enter password"
+                  placeholder="Informe uma senha"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
@@ -103,10 +105,10 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
 
               <Form.Group controlId="confirmPassword">
-                <Form.Label>Confirm Password</Form.Label>
+                <Form.Label>Confirmação de Senha</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Confirm password"
+                  placeholder="Confirmação de senha"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   autoComplete="off"
@@ -114,12 +116,12 @@ const ProfileScreen = ({ location, history }) => {
               </Form.Group>
 
               <Button variant="primary" type="submit">
-                Update
+                Atualizar
               </Button>
             </Form>
           </Col>
           <Col md={9}>
-            <h2>My Orders</h2>
+            <h2>Meus Pedidos</h2>
             {loadingOrders ? (
               <Loader />
             ) : errorOrders ? (
@@ -129,10 +131,10 @@ const ProfileScreen = ({ location, history }) => {
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>DATE</th>
+                    <th>DATA</th>
                     <th>TOTAL</th>
-                    <th>PAID</th>
-                    <th>DELIVERED</th>
+                    <th>PAGO</th>
+                    <th>ENTREGUE</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -142,11 +144,14 @@ const ProfileScreen = ({ location, history }) => {
                     orders.map((order) => (
                       <tr key={order._id}>
                         <td>{order._id}</td>
-                        <td>{order.createdAt.substring(0, 10)}</td>
+                        {/* <td>{order.createdAt.substring(0, 10)}</td> */}
+                        <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
+                        <td></td>
                         <td>{order.totalPrice}</td>
                         <td>
                           {order.isPaid ? (
-                            order.paidAt.substring(0, 10)
+                            // order.paidAt.substring(0, 10)
+                            <Moment format="DD/MM/YYYY">{order.paidAt}</Moment>
                           ) : (
                             <i
                               className="fas fa-times"
@@ -160,7 +165,10 @@ const ProfileScreen = ({ location, history }) => {
                         </td>
                         <td>
                           {order.isDelivered ? (
-                            order.deliveredAt.substring(0, 10)
+                            // order.deliveredAt.substring(0, 10)
+                            <Moment format="DD/MM/YYYY">
+                              {order.deliveredAt}
+                            </Moment>
                           ) : (
                             <i
                               className="fas fa-times"
@@ -175,7 +183,7 @@ const ProfileScreen = ({ location, history }) => {
                         <td>
                           <LinkContainer to={`/order/${order._id}`}>
                             <Button className="btn-sm" variant="light">
-                              Details
+                              Detalhes
                             </Button>
                           </LinkContainer>
                         </td>

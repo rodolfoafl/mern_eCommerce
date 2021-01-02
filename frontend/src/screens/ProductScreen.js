@@ -43,7 +43,7 @@ const ProductScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (successProductReview) {
-      alert("Review submitted!");
+      alert("Avaliação enviada!");
       setRating(0);
       setComment("");
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
@@ -70,7 +70,7 @@ const ProductScreen = ({ match, history }) => {
   return (
     <>
       <Link className="btn btn-dark my-3" to="/">
-        Go Back
+        Voltar
       </Link>
       {loading ? (
         <Loader />
@@ -91,12 +91,12 @@ const ProductScreen = ({ match, history }) => {
                 <ListGroup.Item>
                   <Rating
                     value={product.rating}
-                    text={`${product.numReviews} reviews`}
+                    text={`${product.numReviews} avaliações`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+                <ListGroup.Item>Preço: R${product.price}</ListGroup.Item>
                 <ListGroup.Item>
-                  Description: {product.description}
+                  Descrição: {product.description}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -106,9 +106,9 @@ const ProductScreen = ({ match, history }) => {
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
-                      <Col>Price:</Col>
+                      <Col>Preço:</Col>
                       <Col>
-                        <strong>${product.price}</strong>
+                        <strong>R${product.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -117,7 +117,9 @@ const ProductScreen = ({ match, history }) => {
                     <Row>
                       <Col>Status:</Col>
                       <Col>
-                        {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
+                        {product.countInStock > 0
+                          ? "Em Estoque"
+                          : "Indisponível"}
                       </Col>
                     </Row>
                   </ListGroup.Item>
@@ -125,7 +127,7 @@ const ProductScreen = ({ match, history }) => {
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
-                        <Col>Qty</Col>
+                        <Col>Qtde</Col>
                         <Col>
                           <Form.Control
                             as="select"
@@ -152,7 +154,7 @@ const ProductScreen = ({ match, history }) => {
                       type="button"
                       disabled={product.countInStock === 0}
                     >
-                      Add To Cart
+                      Adicionar ao Carrinho
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
@@ -162,9 +164,9 @@ const ProductScreen = ({ match, history }) => {
 
           <Row>
             <Col md={6}>
-              <h2>Reviews</h2>
+              <h2 className="my-3">Avaliações</h2>
               {product.reviews.length === 0 && (
-                <Message>No Reviews Yet.</Message>
+                <Message>Esse produto ainda não tem nenhuma avaliação.</Message>
               )}
               <ListGroup variant="flush">
                 {product.reviews.map((review) => (
@@ -176,29 +178,29 @@ const ProductScreen = ({ match, history }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Costumer Review</h2>
+                  <h2>Escreva uma avaliação</h2>
                   {errorProductReview && (
                     <Message variant="danger">{errorProductReview}</Message>
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="rating">
-                        <Form.Label>Rating</Form.Label>
+                        <Form.Label>Classificação</Form.Label>
                         <Form.Control
                           as="select"
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                         >
-                          <option value="">Select...</option>
-                          <option value="1">1 - Poor</option>
-                          <option value="2">2 - Fair</option>
-                          <option value="3">3 - Good</option>
-                          <option value="4">4 - Very Good</option>
-                          <option value="5">5 - Excellent</option>
+                          <option value="">Selecione...</option>
+                          <option value="1">1 - Ruim</option>
+                          <option value="2">2 - Medíocre</option>
+                          <option value="3">3 - Bom</option>
+                          <option value="4">4 - Muito Bom</option>
+                          <option value="5">5 - Excelente</option>
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId="comment">
-                        <Form.Label>Comment</Form.Label>
+                        <Form.Label>Comentário</Form.Label>
                         <Form.Control
                           as="textarea"
                           row="3"
@@ -207,12 +209,13 @@ const ProductScreen = ({ match, history }) => {
                         ></Form.Control>
                       </Form.Group>
                       <Button type="submit" variant="primary">
-                        Submit
+                        Enviar
                       </Button>
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to="/login">sign in</Link> to write a review{" "}
+                      Por favor <Link to="/login">entre</Link> para escrever uma
+                      avaliação{" "}
                     </Message>
                   )}
                 </ListGroup.Item>

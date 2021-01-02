@@ -12,9 +12,9 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: "Welcome To YouR Shop",
-  description: "We sell the best products for cheap",
-  keywords: "eletronics, buy eletronics, cheap eletronics",
+  title: "Bem vindo a YAM Naturais",
+  description: "Produtos naturais.",
+  keywords: "naturais, produtos naturais",
 };
 
 export default Meta;

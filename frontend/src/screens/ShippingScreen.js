@@ -26,13 +26,13 @@ const ShippingScreen = ({ history }) => {
     <>
       <CheckoutSteps step1 step2 />
       <FormContainer>
-        <h1>Shipping</h1>
+        <h1>Entrega</h1>
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="address">
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Endereço</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Address"
+              placeholder="Informe um endereço"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               autoComplete="off"
@@ -41,10 +41,10 @@ const ShippingScreen = ({ history }) => {
           </Form.Group>
 
           <Form.Group controlId="city">
-            <Form.Label>City</Form.Label>
+            <Form.Label>Cidade</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter City"
+              placeholder="Informe uma cidade"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               autoComplete="off"
@@ -53,10 +53,10 @@ const ShippingScreen = ({ history }) => {
           </Form.Group>
 
           <Form.Group controlId="postalCode">
-            <Form.Label>Postal Code</Form.Label>
+            <Form.Label>Código Postal</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Postal Code"
+              placeholder="Informe um código postal"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               autoComplete="off"
@@ -65,10 +65,10 @@ const ShippingScreen = ({ history }) => {
           </Form.Group>
 
           <Form.Group controlId="country">
-            <Form.Label>Country</Form.Label>
+            <Form.Label>País</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter Country"
+              placeholder="Informe um país"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               autoComplete="off"
@@ -77,7 +77,7 @@ const ShippingScreen = ({ history }) => {
           </Form.Group>
 
           <Button type="submit" variant="primary">
-            Continue
+            Continuar
           </Button>
         </Form>
       </FormContainer>

@@ -25,7 +25,11 @@ h3 {
 }
 
 .card-img-top {
-  max-height: 204px;
+  height: 204px;
+}
+
+.img-fluid {
+  max-height: 432px;
 }
 
 /* Carousel */

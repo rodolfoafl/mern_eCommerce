@@ -27,14 +27,14 @@ const UsersListScreen = ({ history }) => {
   }, [dispatch, history, successDelete, userInfo]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("Você tem certeza?")) {
       dispatch(deleteUser(id));
     }
   };
 
   return (
     <>
-      <h1>Users</h1>
+      <h1>Usuários</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -43,7 +43,7 @@ const UsersListScreen = ({ history }) => {
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <th>ID</th>
-            <th>NAME</th>
+            <th>NOME</th>
             <th>EMAIL</th>
             <th>ADMIN</th>
             <th></th>

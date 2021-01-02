@@ -29,13 +29,18 @@ const HomeScreen = ({ match }) => {
       <Meta />
 
       {!keyword ? (
-        <ProductCarousel />
+        <>
+          <ProductCarousel />
+          <h1>Produtos em Destaque</h1>
+        </>
       ) : (
-        <Link to="/" className="btn btn-light">
-          Go Back
-        </Link>
+        <>
+          <h1>Resultados da Busca</h1>
+          <Link to="/" className="btn btn-dark">
+            Voltar
+          </Link>
+        </>
       )}
-      <h1>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (

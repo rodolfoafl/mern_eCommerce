@@ -31,7 +31,7 @@ const RegisterScreen = ({ location, history }) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage("Password do not match!");
+      setMessage("Senhas não são idênticas!");
     } else {
       dispatch(register(name, email, password));
     }
@@ -39,16 +39,16 @@ const RegisterScreen = ({ location, history }) => {
 
   return (
     <FormContainer>
-      <h1>Sign Up</h1>
+      <h1>Cadastrar</h1>
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Nome</Form.Label>
           <Form.Control
             type="name"
-            placeholder="Enter name"
+            placeholder="Informe um nome"
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoComplete="off"
@@ -57,10 +57,10 @@ const RegisterScreen = ({ location, history }) => {
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Informe um email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
@@ -69,10 +69,10 @@ const RegisterScreen = ({ location, history }) => {
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Senha</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter password"
+            placeholder="Informe uma senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="off"
@@ -81,10 +81,10 @@ const RegisterScreen = ({ location, history }) => {
         </Form.Group>
 
         <Form.Group controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Confirmação de Senha</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Confirm password"
+            placeholder="Confirmação de senha"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             autoComplete="off"
@@ -93,15 +93,15 @@ const RegisterScreen = ({ location, history }) => {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Register
+          Cadastrar
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          Have an Account?{" "}
+          Já tem uma conta?{" "}
           <Link to={redirect ? `/register?redirect=${redirect}` : "/login"}>
-            Login
+            Entrar
           </Link>
         </Col>
       </Row>

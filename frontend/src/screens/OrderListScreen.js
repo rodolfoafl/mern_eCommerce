@@ -6,6 +6,8 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listOrders } from "../actions/orderActions";
 
+import Moment from "react-moment";
+
 const OrderListScreen = ({ history }) => {
   const dispatch = useDispatch();
 
@@ -25,7 +27,7 @@ const OrderListScreen = ({ history }) => {
 
   return (
     <>
-      <h1>Orders</h1>
+      <h1>Pedidos</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -34,11 +36,11 @@ const OrderListScreen = ({ history }) => {
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <th>ID</th>
-            <th>USER</th>
-            <th>DATE</th>
+            <th>USUÁRIO</th>
+            <th>DATA</th>
             <th>TOTAL</th>
-            <th>PAID</th>
-            <th>DELIVERED</th>
+            <th>PAGO</th>
+            <th>ENTREGUE</th>
             <th></th>
           </thead>
           <tbody>
@@ -48,12 +50,17 @@ const OrderListScreen = ({ history }) => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.user && order.user.name}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>${order.totalPrice}</td>
+                  {/* <td>{order.createdAt.substring(0, 10)}</td> */}
+                  <td>
+                    {" "}
+                    <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
+                  </td>
+                  <td>R${order.totalPrice}</td>
                   <td>
                     {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
+                      <Moment format="DD/MM/YYYY">{order.paidAt}</Moment>
                     ) : (
+                      // order.paidAt.substring(0, 10)
                       <i
                         className="fas fa-times"
                         style={{
@@ -66,7 +73,8 @@ const OrderListScreen = ({ history }) => {
                   </td>
                   <td>
                     {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
+                      // order.deliveredAt.substring(0, 10)
+                      <Moment format="DD/MM/YYYY">{order.deliveredAt}</Moment>
                     ) : (
                       <i
                         className="fas fa-times"
@@ -85,7 +93,7 @@ const OrderListScreen = ({ history }) => {
                         className="btn-sm"
                         style={{ display: "flex", justifyContent: "center" }}
                       >
-                        Details
+                        Detalhes
                       </Button>
                     </LinkContainer>
                   </td>

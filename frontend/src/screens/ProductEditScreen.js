@@ -97,10 +97,10 @@ const ProductEditScreen = ({ match, history }) => {
   return (
     <>
       <Link to="/admin/productslist" className="btn btn-light my-3">
-        Go Back
+        Voltar
       </Link>
       <FormContainer>
-        <h1>Edit Product</h1>
+        <h1>Editar Produto</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
         {loading ? (
@@ -110,10 +110,10 @@ const ProductEditScreen = ({ match, history }) => {
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Nome</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="Enter name"
+                placeholder="Informe o nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 autoComplete="off"
@@ -122,10 +122,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="price">
-              <Form.Label>Price</Form.Label>
+              <Form.Label>Preço</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter price"
+                placeholder="Informe o preço"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 autoComplete="off"
@@ -134,10 +134,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="image">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>Imagem</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter image URL"
+                placeholder="Informe um link para a imagem"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
                 autoComplete="off"
@@ -145,7 +145,7 @@ const ProductEditScreen = ({ match, history }) => {
 
               <Form.File
                 id="image-file"
-                label="Choose File"
+                label="Selecione um arquivo"
                 custom
                 onChange={uploadFileHandler}
               ></Form.File>
@@ -153,10 +153,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="brand">
-              <Form.Label>Brand</Form.Label>
+              <Form.Label>Marca</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter brand"
+                placeholder="Informe a marca"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 autoComplete="off"
@@ -165,10 +165,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="category">
-              <Form.Label>Category</Form.Label>
+              <Form.Label>Categoria</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter category"
+                placeholder="Informe a categoria"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 autoComplete="off"
@@ -177,10 +177,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="description">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Descrição</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Enter description"
+                placeholder="Informe a descrição"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 autoComplete="off"
@@ -189,10 +189,10 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Form.Group controlId="countInStock">
-              <Form.Label>Count In Stock</Form.Label>
+              <Form.Label>Qtde em Estoque</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter countInStock"
+                placeholder="Informe a quantidade em estoque"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
                 autoComplete="off"
@@ -201,7 +201,7 @@ const ProductEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-              Update
+              Atualizar
             </Button>
           </Form>
         )}
