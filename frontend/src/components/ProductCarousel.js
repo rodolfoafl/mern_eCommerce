@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "./Loader";
 import Message from "./Message";
 import { listTopProducts } from "../actions/productActions";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const ProductCarousel = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const ProductCarousel = () => {
           <Link to={`/product/${product._id}`}>
             <Carousel.Caption className="carousel-caption">
               <h2>
-                {product.name} (R${product.price})
+                {product.name} ({currencyFormatter(product.price)})
               </h2>
             </Carousel.Caption>
             <Image src={product.image} alt={product.name} fluid />

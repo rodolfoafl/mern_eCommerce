@@ -14,6 +14,8 @@ import Message from "../components/Message";
 
 import { addToCart, removeFromCart } from "../actions/cartActions";
 
+import currencyFormatter from "../utils/currencyFormatter";
+
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
 
@@ -58,7 +60,7 @@ const CartScreen = ({ match, location, history }) => {
                   <Col md={3}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
-                  <Col md={2}>R${item.price}</Col>
+                  <Col md={2}>{currencyFormatter(item.price)}</Col>
                   <Col md={2}>
                     <Form.Control
                       as="select"
@@ -100,10 +102,12 @@ const CartScreen = ({ match, location, history }) => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 itens
               </h2>
-              R$
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
+
+              {currencyFormatter(
+                cartItems
+                  .reduce((acc, item) => acc + item.qty * item.price, 0)
+                  .toFixed(2)
+              )}
             </ListGroup.Item>
             <ListGroup.Item>
               <Button

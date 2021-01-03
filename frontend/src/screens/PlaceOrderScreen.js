@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -99,7 +100,8 @@ const PlaceOrderScreen = ({ history }) => {
                         </Col>
 
                         <Col md={4}>
-                          {item.qty} x {item.price} = R${item.qty * item.price}
+                          {item.qty} x {item.price} ={" "}
+                          {currencyFormatter(item.qty * item.price)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -119,25 +121,25 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Itens</Col>
-                  <Col>R${itemsPrice}</Col>
+                  <Col>{currencyFormatter(itemsPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Entrega</Col>
-                  <Col>R${shippingPrice}</Col>
+                  <Col>{currencyFormatter(shippingPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Impostos</Col>
-                  <Col>R${taxPrice}</Col>
+                  <Col>{currencyFormatter(taxPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>R${totalPrice}</Col>
+                  <Col>{currencyFormatter(totalPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

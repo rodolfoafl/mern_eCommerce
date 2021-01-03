@@ -7,6 +7,7 @@ import Loader from "../components/Loader";
 import { listOrders } from "../actions/orderActions";
 
 import Moment from "react-moment";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const OrderListScreen = ({ history }) => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const OrderListScreen = ({ history }) => {
                     {" "}
                     <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
                   </td>
-                  <td>R${order.totalPrice}</td>
+                  <td>{currencyFormatter(order.totalPrice)}</td>
                   <td>
                     {order.isPaid ? (
                       <Moment format="DD/MM/YYYY">{order.paidAt}</Moment>

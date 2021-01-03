@@ -17,6 +17,7 @@ import {
 } from "../constants/orderConstants";
 
 import Moment from "react-moment";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
@@ -162,8 +163,8 @@ const OrderScreen = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x R${item.price} = R$
-                          {item.qty * item.price}
+                          {item.qty} x {item.price} ={" "}
+                          {currencyFormatter(item.qty * item.price)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -182,25 +183,25 @@ const OrderScreen = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Itens</Col>
-                  <Col>R${order.itemsPrice}</Col>
+                  <Col>{currencyFormatter(order.itemsPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Entrega</Col>
-                  <Col>R${order.shippingPrice}</Col>
+                  <Col>{currencyFormatter(order.shippingPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Impostos</Col>
-                  <Col>R${order.taxPrice}</Col>
+                  <Col>{currencyFormatter(order.taxPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>R${order.totalPrice}</Col>
+                  <Col>{currencyFormatter(order.totalPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && (

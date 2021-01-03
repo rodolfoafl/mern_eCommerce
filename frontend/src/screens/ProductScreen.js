@@ -22,6 +22,8 @@ import {
 } from "../actions/productActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
+import currencyFormatter from "../utils/currencyFormatter";
+
 const ProductScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
@@ -94,7 +96,9 @@ const ProductScreen = ({ match, history }) => {
                     text={`${product.numReviews} avaliações`}
                   />
                 </ListGroup.Item>
-                <ListGroup.Item>Preço: R${product.price}</ListGroup.Item>
+                <ListGroup.Item>
+                  Preço: {currencyFormatter(product.price)}
+                </ListGroup.Item>
                 <ListGroup.Item>
                   Descrição: {product.description}
                 </ListGroup.Item>
@@ -108,7 +112,7 @@ const ProductScreen = ({ match, history }) => {
                     <Row>
                       <Col>Preço:</Col>
                       <Col>
-                        <strong>R${product.price}</strong>
+                        <strong>{currencyFormatter(product.price)}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>

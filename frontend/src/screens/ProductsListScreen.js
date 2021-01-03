@@ -11,6 +11,7 @@ import {
   createProduct,
 } from "../actions/productActions";
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const ProductsListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
@@ -106,7 +107,7 @@ const ProductsListScreen = ({ history, match }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>R${product.price}</td>
+                  <td>{currencyFormatter(product.price)}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
