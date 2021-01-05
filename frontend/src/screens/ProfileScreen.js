@@ -9,6 +9,7 @@ import { listUserOrders as listOrders } from "../actions/orderActions";
 import { USER_UPDATE_RESET } from "../constants/userConstans.js";
 
 import Moment from "react-moment";
+import currencyFormatter from "../utils/currencyFormatter";
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -145,9 +146,10 @@ const ProfileScreen = ({ location, history }) => {
                       <tr key={order._id}>
                         <td>{order._id}</td>
                         {/* <td>{order.createdAt.substring(0, 10)}</td> */}
-                        <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
-                        <td></td>
-                        <td>{order.totalPrice}</td>
+                        <td>
+                          <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
+                        </td>
+                        <td>{currencyFormatter(order.totalPrice)}</td>
                         <td>
                           {order.isPaid ? (
                             // order.paidAt.substring(0, 10)

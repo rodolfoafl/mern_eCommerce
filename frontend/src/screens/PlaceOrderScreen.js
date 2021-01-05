@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 import { createOrder } from "../actions/orderActions";
+import { resetCart } from "../actions/cartActions";
+
 import currencyFormatter from "../utils/currencyFormatter";
 
 const PlaceOrderScreen = ({ history }) => {
@@ -34,9 +36,10 @@ const PlaceOrderScreen = ({ history }) => {
 
   useEffect(() => {
     if (success) {
+      dispatch(resetCart());
       history.push(`/order/${order._id}`);
     }
-  }, [history, success, order]);
+  }, [dispatch, history, success, order]);
 
   const placeOrderHandler = () => {
     console.log("placeOrderHandler");
@@ -64,8 +67,13 @@ const PlaceOrderScreen = ({ history }) => {
               <h2>Entrega</h2>
               <p>
                 <strong>Endereço: </strong>
-                {shippingAddress.address} - {shippingAddress.city} -{" "}
-                {shippingAddress.postalCode}, {shippingAddress.country}
+                {shippingAddress.addressStreet}, {shippingAddress.addressNumber}
+                {shippingAddress.addressComplement &&
+                  `, ${shippingAddress.addressComplement}`}{" "}
+                - {shippingAddress.addressDistrict} -{" "}
+                {shippingAddress.addressCity}, {shippingAddress.addressState} -{" "}
+                {shippingAddress.addressPostalCode} -{" "}
+                {shippingAddress.addressCountry}
               </p>
             </ListGroup.Item>
 

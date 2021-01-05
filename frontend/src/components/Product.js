@@ -25,7 +25,11 @@ const Product = ({ product }) => {
           />
         </Card.Text>
 
-        <Card.Text as="h3">{currencyFormatter(product.price)}</Card.Text>
+        {product.countInStock > 0 ? (
+          <Card.Text as="h3">{currencyFormatter(product.price)}</Card.Text>
+        ) : (
+          <Card.Text as="h4">Produto Indisponível</Card.Text>
+        )}
       </Card.Body>
     </Card>
   );

@@ -25,17 +25,26 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>YAM Naturais</Navbar.Brand>
+            {/* <Navbar.Brand>YAM Naturais</Navbar.Brand> */}
+            <Navbar.Brand>
+              <img
+                src="https://i.ibb.co/hyZ1R5G/logo-yam.png"
+                alt="Logo Yam Naturais"
+                className="shop-logo"
+              />
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Route render={({ history }) => <SearchBar history={history} />} />
             <Nav className="ml-auto">
-              <LinkContainer to="/cart">
-                <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Carrinho
-                </Nav.Link>
-              </LinkContainer>
+              {!userInfo || !userInfo.isAdmin ? (
+                <LinkContainer to="/cart">
+                  <Nav.Link>
+                    <i className="fas fa-shopping-cart"></i> Carrinho
+                  </Nav.Link>
+                </LinkContainer>
+              ) : null}
               {userInfo ? (
                 <NavDropdown title={userInfo.name.split(" ")[0]} id="username">
                   <LinkContainer to="/profile">

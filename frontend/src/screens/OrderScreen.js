@@ -109,9 +109,15 @@ const OrderScreen = ({ match, history }) => {
               </p>
               <p>
                 <strong>Endereço: </strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
-                {order.shippingAddress.postalCode},{" "}
-                {order.shippingAddress.country}
+                {order.shippingAddress.addressStreet},{" "}
+                {order.shippingAddress.addressNumber}
+                {order.shippingAddress.addressComplement &&
+                  `, ${order.shippingAddress.addressComplement}`}{" "}
+                - {order.shippingAddress.addressDistrict} -{" "}
+                {order.shippingAddress.addressCity},{" "}
+                {order.shippingAddress.addressState} -{" "}
+                {order.shippingAddress.addressPostalCode} -{" "}
+                {order.shippingAddress.addressCountry}
               </p>
               {order.isDelivered ? (
                 <Message variant="success">

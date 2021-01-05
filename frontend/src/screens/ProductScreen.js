@@ -24,6 +24,8 @@ import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
 
 import currencyFormatter from "../utils/currencyFormatter";
 
+import Moment from "react-moment";
+
 const ProductScreen = ({ match, history }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
@@ -177,7 +179,10 @@ const ProductScreen = ({ match, history }) => {
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
                     <Rating value={review.rating} />
-                    <p>{review.createdAt.substring(0, 10)}</p>
+                    {/* <p>{review.createdAt.substring(0, 10)}</p> */}
+                    <p>
+                      <Moment format="DD/MM/YYYY">{review.createdAt}</Moment>
+                    </p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
