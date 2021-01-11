@@ -147,6 +147,13 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
+              <h2>Método de Entrega</h2>
+              <p>{`${order.shippingInformation.method.toUpperCase()} - ${currencyFormatter(
+                order.shippingInformation.price
+              )}`}</p>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
               <h2>Itens do Pedido</h2>
               {order.orderItems.length === 0 ? (
                 <Message>Pedido vazio</Message>
@@ -195,15 +202,12 @@ const OrderScreen = ({ match, history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Entrega</Col>
-                  <Col>{currencyFormatter(order.shippingPrice)}</Col>
+                  <Col>
+                    {currencyFormatter(order.shippingInformation.price)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Impostos</Col>
-                  <Col>{currencyFormatter(order.taxPrice)}</Col>
-                </Row>
-              </ListGroup.Item>
+
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>

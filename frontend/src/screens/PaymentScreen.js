@@ -5,9 +5,11 @@ import FormContainer from "../components/FormContainer";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { savePaymentMethod } from "../actions/cartActions";
 
+import { getShippingDetails } from "../actions/productActions";
+
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { shippingAddress, cartItems } = cart;
 
   if (!shippingAddress) {
     history.push("/shipping");
@@ -17,8 +19,31 @@ const PaymentScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
+  const calculateShipping = () => {
+    let totalWeight = cartItems.reduce(
+      (acc, item) => acc + item.weight * item.qty,
+      0
+    );
+
+    let newShippingInfo = {
+      cepReceiver: shippingAddress.addressPostalCode.replace(/[^\d]+/g, ""),
+      weight: cartItems.reduce((acc, item) => acc + item.weight * item.qty, 0),
+      width: cartItems.reduce((acc, item) => acc + item.width * item.qty, 0),
+      height: cartItems.reduce((acc, item) => acc + item.height * item.qty, 0),
+      length: cartItems.reduce((acc, item) => acc + item.length * item.qty, 0),
+    };
+
+    //TODO: CALCULAR O VALOR DA ENTREGA COM TODOS OS PRODUTOS!
+    console.log(newShippingInfo);
+
+    dispatch(getShippingDetails(newShippingInfo));
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    calculateShipping();
+
     dispatch(savePaymentMethod(paymentMethod));
     history.push("/placeorder");
   };

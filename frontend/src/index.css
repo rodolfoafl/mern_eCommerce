@@ -1,6 +1,11 @@
 main {
   min-height: 80vh;
+  background-color: rgba(0, 0, 0, 0.02);
 }
+
+/* body {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+} */
 
 h1 {
   font-size: 1.8rem;

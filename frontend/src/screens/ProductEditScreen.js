@@ -20,6 +20,10 @@ const ProductEditScreen = ({ match, history }) => {
   const [description, setDescription] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [width, setWidth] = useState(0);
+  const [length, setLength] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -49,6 +53,10 @@ const ProductEditScreen = ({ match, history }) => {
         setCategory(product.category);
         setDescription(product.description);
         setCountInStock(product.countInStock);
+        setWeight(product.weight);
+        setHeight(product.height);
+        setWidth(product.width);
+        setLength(product.length);
       }
     }
   }, [dispatch, productId, product, history, successUpdate]);
@@ -90,6 +98,10 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        weight,
+        height,
+        width,
+        length,
       })
     );
   };
@@ -196,6 +208,66 @@ const ProductEditScreen = ({ match, history }) => {
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
                 autoComplete="off"
+                required
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="weight">
+              <Form.Label>
+                Peso (kg) (mínimo exigido por correios = 1kg)
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Informe o peso"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                autoComplete="off"
+                min="1"
+                required
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="height">
+              <Form.Label>
+                Altura (cm) (mínimo exigido por correios = 2cm)
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Informe a altura"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+                autoComplete="off"
+                min="2"
+                required
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="width">
+              <Form.Label>
+                Largura (cm) (mínimo exigido por correios = 11cm)
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Informe a largura"
+                value={width}
+                onChange={(e) => setWidth(e.target.value)}
+                autoComplete="off"
+                min="11"
+                required
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="length">
+              <Form.Label>
+                Comprimento (cm) (mínimo exigido por correios = 16cm)
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Informe o comprimento"
+                value={length}
+                onChange={(e) => setLength(e.target.value)}
+                autoComplete="off"
+                min="16"
                 required
               ></Form.Control>
             </Form.Group>

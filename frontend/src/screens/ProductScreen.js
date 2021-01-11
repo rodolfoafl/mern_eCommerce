@@ -19,8 +19,12 @@ import Meta from "../components/Meta";
 import {
   getProductDetails,
   createProductReview,
+  getShippingDetails,
 } from "../actions/productActions";
-import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
+import {
+  PRODUCT_CREATE_REVIEW_RESET,
+  PRODUCT_SHIPPING_DETAILS_RESET,
+} from "../constants/productConstants";
 
 import currencyFormatter from "../utils/currencyFormatter";
 
@@ -39,13 +43,26 @@ const ProductScreen = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const productShippingDetails = useSelector(
+    (state) => state.productShippingDetails
+  );
+  const {
+    loading: shippingLoading,
+    error: shippingError,
+    shippingDetails,
+  } = productShippingDetails;
+
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
     error: errorProductReview,
     success: successProductReview,
   } = productReviewCreate;
 
+  const [postalCode, setPostalCode] = useState("");
+
   useEffect(() => {
+    dispatch({ type: PRODUCT_SHIPPING_DETAILS_RESET });
+
     if (successProductReview) {
       alert("Avaliação enviada!");
       setRating(0);
@@ -58,6 +75,33 @@ const ProductScreen = ({ match, history }) => {
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
+  const calculateShipping = (e) => {
+    e.preventDefault();
+
+    if (postalCode.length < 10) {
+      return alert("Informe um CEP válido!");
+    }
+
+    let newShipping = {
+      cepReceiver: postalCode.replace(/[^\d]+/g, ""),
+      weight: product.weight,
+      width: product.width,
+      height: product.height,
+      length: product.length,
+    };
+    dispatch(getShippingDetails(newShipping));
+  };
+
+  const maskCep = (e) => {
+    let value = e.target.value;
+    value = value.replace(/\D/g, "");
+    value = value.replace(/^(\d{2})(\d)/, "$1.$2");
+    value = value.replace(/\.(\d{3})(\d)/, ".$1-$2");
+    e.target.value = value;
+    // return value;
+    setPostalCode(value);
   };
 
   const submitHandler = (e) => {
@@ -163,6 +207,89 @@ const ProductScreen = ({ match, history }) => {
                       Adicionar ao Carrinho
                     </Button>
                   </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Form onSubmit={calculateShipping}>
+                      <Form.Group controlId="cep">
+                        <Form.Control
+                          type="text"
+                          placeholder="Informe seu CEP"
+                          value={postalCode}
+                          autoComplete="off"
+                          maxLength="10"
+                          name="postalCode"
+                          // required
+                          onChange={(e) => maskCep(e)}
+                          // onBlur={(e) => getCEPInfo(e)}
+                        ></Form.Control>
+                      </Form.Group>
+                      <Button
+                        onClick={calculateShipping}
+                        className="btn-block"
+                        variant="info"
+                        type="button"
+                        disabled={product.countInStock === 0}
+                      >
+                        Calcular Frete
+                      </Button>
+                    </Form>
+                  </ListGroup.Item>
+
+                  <Row>
+                    <Col>
+                      {shippingLoading ? (
+                        <Loader />
+                      ) : shippingError ? (
+                        <Message variant="danger">{shippingError}</Message>
+                      ) : (
+                        shippingDetails !== null &&
+                        shippingDetails !== undefined &&
+                        shippingDetails.pac !== undefined && (
+                          <ListGroup.Item>
+                            <>
+                              <Row>
+                                <Col>
+                                  {shippingDetails.pac.deliveryTime > 0 && (
+                                    <Message>
+                                      PAC: R${shippingDetails.pac.finalValue} -{" "}
+                                      {shippingDetails.pac.deliveryTime} dias
+                                      úteis
+                                    </Message>
+                                  )}
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  {shippingDetails.sedex.deliveryTime > 0 && (
+                                    <Message>
+                                      SEDEX: R$
+                                      {shippingDetails.sedex.finalValue} -{" "}
+                                      {shippingDetails.sedex.deliveryTime} dias
+                                      úteis
+                                    </Message>
+                                  )}
+                                </Col>
+                              </Row>
+                              <Row>
+                                <Col>
+                                  {shippingDetails.sedexDoze.finalValue > 0 && (
+                                    <Message>
+                                      SEDEX 12: R$
+                                      {
+                                        shippingDetails.sedexDoze.finalValue
+                                      } -{" "}
+                                      {shippingDetails.sedexDoze.deliveryTime}{" "}
+                                      dias úteis
+                                    </Message>
+                                  )}
+                                </Col>
+                              </Row>
+                            </>
+                          </ListGroup.Item>
+                        )
+                      )}
+                    </Col>
+                  </Row>
                 </ListGroup>
               </Card>
             </Col>

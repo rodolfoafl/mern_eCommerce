@@ -25,7 +25,13 @@ import {
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_FAIL,
+  PRODUCT_SHIPPING_DETAILS_REQUEST,
+  PRODUCT_SHIPPING_DETAILS_SUCCESS,
+  PRODUCT_SHIPPING_DETAILS_FAIL,
+  // PRODUCT_SHIPPING_DETAILS_RESET,
 } from "../constants/productConstants";
+
+const parseString = require("xml2js").parseString;
 
 export const listProducts = (keyword = "", pageNumber = "") => async (
   dispatch
@@ -228,6 +234,36 @@ export const listTopProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getShippingDetails = (productShipping) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_SHIPPING_DETAILS_REQUEST });
+
+    // console.log(productShipping);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post("/api/shipping", productShipping, config);
+    // console.log(data);
+
+    dispatch({
+      type: PRODUCT_SHIPPING_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_SHIPPING_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
